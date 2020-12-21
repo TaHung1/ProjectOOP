@@ -6,19 +6,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
+import java.util.ArrayList;
 
 public class TagView {
-    public static void CreateTagWindow() {
+	public static void CreateTagWindow() {
         JPanel panelView;
         DefaultListModel tagListModel = new DefaultListModel();
         JButton acceptButton = new JButton("Accept");
-
+        
+        ArrayList<String> tagGroup = new ArrayList<String>();
+        tagGroup.add("GroupTopAirline");
+        tagGroup.add("GroupTopBank");
+        tagGroup.add("GroupTopFishery");
+        tagGroup.add("GroupTopPetrol");
+        tagGroup.add("GroupTopRubber");
+        tagGroup.add("GroupTopSteel");
+        tagGroup.add("GroupTopVin");                
+                
+        
         tagListModel.addElement("Nhóm cổ phiếu Hàng không");
         tagListModel.addElement("Nhóm cổ phiếu Ngân hàng");
         tagListModel.addElement("Nhóm cổ phiếu Thuỷ sản");
         tagListModel.addElement("Nhóm cổ phiếu Xăng dầu");
-        tagListModel.addElement("Nhóm cổ phiếu cao su");
+        tagListModel.addElement("Nhóm cổ phiếu Cao su");
         tagListModel.addElement("Nhóm cổ phiếu Sắt, Thép");
         tagListModel.addElement("Nhóm cổ phiếu Vin");
         
@@ -37,9 +47,9 @@ public class TagView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tagList.getSelectedIndex() != -1) {
-                    String getTagString = String.valueOf(tagList.getSelectedValuesList()).replace("[", "").replace("]", "");
-                    ViewBase.inputTextField.setText(getTagString);
-                    ViewBase.userInputString = getTagString;
+                    int getTagString = tagList.getSelectedIndex();
+                    ViewBase.inputTextField.setText(tagGroup.get(getTagString));
+                    ViewBase.userInputString = tagGroup.get(getTagString);
                     ProjectOOP.src.Controller.Controller.request();
                 }
             }
@@ -51,7 +61,7 @@ public class TagView {
 
         createFrame.setSize(600, 400);
         createFrame.add(acceptButton);
-        createFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        createFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         createFrame.addWindowListener(new WindowListener() {
 
             @Override
@@ -101,4 +111,3 @@ public class TagView {
         createFrame.setVisible(true);
     }
 }
-
